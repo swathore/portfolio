@@ -1,21 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>portfolio</title>
-    <style>
-        body {
-        color: gray;
-        font-family: 'courier new', Courier, monospace;
-        background-color: black;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Swathore | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --silver: #c0c0c0;
+      --white: #ffffff;
+      --black: #000000;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      font-weight: bold;
+    }
+
+    .glow {
+      text-shadow: 0 0 6px var(--silver);
+    }
+
+    .button {
+      background-color: var(--silver);
+      color: var(--black);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #a9a9a9;
+      transform: scale(1.05);
+    }
+
+    .dropdown-content {
+      display: none;
+      margin-top: 1rem;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .project-card {
+      border: 1px solid var(--silver);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 12px rgba(192, 192, 192, 0.3);
+    }
+
+    .project-card:hover {
+      transform: scale(1.02);
+    }
+
+    .project-info {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .glitch-text {
+      position: relative;
+      color: var(--black);
+      animation: glitch 1s infinite;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      color: var(--silver);
+      z-index: -1;
+    }
+
+    .glitch-text::before {
+      top: -2px;
+      animation: glitchTop 1s infinite;
+    }
+
+    .glitch-text::after {
+      top: 2px;
+      animation: glitchBottom 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: none; }
+      20% { transform: skew(-0.5deg); }
+      40% { transform: skew(0.5deg); }
+      60% { transform: none; }
+      80% { transform: skew(-0.2deg); }
+      100% { transform: none; }
+    }
+
+    @keyframes glitchTop {
+      0%, 100% { clip-path: inset(0 0 90% 0); }
+      50% { clip-path: inset(0 0 10% 0); }
+    }
+
+    @keyframes glitchBottom {
+      0%, 100% { clip-path: inset(90% 0 0 0); }
+      50% { clip-path: inset(10% 0 0 0); }
+    }
+
+    /* Matrix-style rain */
+    #matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-    eternaaaaaaaaal
-    
 
-  
+<canvas id="matrix"></canvas>
+
+<header class="mb-12 relative z-20">
+  <h1 class="text-4xl glow glitch-text" data-text="Swathore">Swathore</h1>
+  <nav class="flex flex-wrap gap-4 mt-4">
+    <button onclick="toggleDropdown('about')" class="button">About</button>
+    <button onclick="toggleDropdown('projects')" class="button">Projects</button>
+    <button onclick="toggleDropdown('skills')" class="button">Skills</button>
+  </nav>
+</header>
+
+<section id="about" class="mb-12 dropdown relative z-20">
+  <h2 class="text-2xl glow mb-2">About Me</h2>
+  <div class="dropdown-content">
+    <p>I’m <span class="glitch-text" data-text="Swathore">Swathore</span> — I create digital experiences that are soft, surreal and interactive. I love hidden layers, glitchy whispers, and gentle code magic.</p>
+  </div>
+</section>
+
+<section id="projects" class="mb-12 dropdown relative z-20">
+  <h2 class="text-2xl glow mb-2">Projects</h2>
+  <div class="dropdown-content">
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 1">
+        <div class="project-info">
+          <h3 class="glow">Dream Garden</h3>
+          <p>Interactive ambient visuals & soft particles dancing on code.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 2">
+        <div class="project-info">
+          <h3 class="glow">Echo Room</h3>
+          <p>A minimalist glitch-inspired experience with secret paths.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="mb-12 dropdown relative z-20">
+  <h2 class="text-2xl glow mb-2">Skills</h2>
+  <div class="dropdown-content">
+    <ul class="list-disc pl-5">
+      <li>Creative Frontend: HTML, CSS, Tailwind, JavaScript</li>
+      <li>React & Motion Interfaces</li>
+      <li>Glitch Design & Concept UI</li>
+      <li>Experimental UX / Narrative Web</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  function toggleDropdown(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  // Matrix-like ethereal rain effect
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  const letters = "01△◇◇⟁⧫⛧✶✸✦";
+  const fontSize = 16;
+  const columns = canvas.width / fontSize;
+  const drops = Array(Math.floor(columns)).fill(1);
+
+  function draw() {
+    ctx.fillStyle = "rgba(255, 255, 255, 0.07)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#C0C0C0";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 50);
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
 </body>
 </html>
